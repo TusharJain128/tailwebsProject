@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken")
+const studentModel = require("../model/studentModel")
 const userModel = require("../model/userModel")
 
-const autherisation = async function (req, res, next) {
+const authentication = async function (req, res, next) {
     try {
         let token = req.headers["x-api-key"]
         if(!token) return res.status(400).send({status:false,message:"token is missing"})
@@ -21,4 +22,17 @@ const autherisation = async function (req, res, next) {
     }
 }
 
+const autherisation = async function (req, res, next) {
+    try {
+        let checkauth = await studentModel.findOne({userId: req.userId})
+        if(!checkauth) return res.status(403).send({status:false,message:"You are not autherised"})
+
+        next()
+    }
+    catch (err) {
+        res.status(500).send({ status: false, message: err.message })
+    }
+}
+
+module.exports.authentication = authentication
 module.exports.autherisation = autherisation

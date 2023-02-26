@@ -24,7 +24,7 @@ const loginUser = async function(req,res){
 
 const getStudents = async function(req,res){
     try {
-       let studentsData = await studentModel.findOne({userId:req._id, isDeleted:false})
+       let studentsData = await studentModel.find({userId:req.userId, isDeleted:false})
        
        res.status(200).send({status:true, message:studentsData})
     } 

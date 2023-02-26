@@ -18,7 +18,10 @@ const studentSchema= new mongoose.Schema({
         type: String,
         required: true
     },
-    isDeleted: Boolean
+    isDeleted: {
+        type:Boolean,
+        default:false
+    }
 },{timestamps:true})
 
 module.exports = mongoose.model("Students",studentSchema)
