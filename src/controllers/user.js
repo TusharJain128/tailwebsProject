@@ -22,4 +22,16 @@ const loginUser = async function(req,res){
     }
 }
 
+const getStudents = async function(req,res){
+    try {
+       let studentsData = await studentModel.findOne({userId:req._id, isDeleted:false})
+       
+       res.status(200).send({status:true, message:studentsData})
+    } 
+    catch (err) {
+        res.status(500).send({status:false, message:err.message})
+    }
+}
+
 module.exports.loginUser= loginUser
+module.exports.getStudents= getStudents

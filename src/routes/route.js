@@ -1,7 +1,7 @@
 const express = require('express')
 const route= express.Router()
-const {loginUser} = require('../controllers/user')
-const {addStudent} = require('../controllers/student')
+const {loginUser, getStudents} = require('../controllers/user')
+const {addStudent, deleteStudent, updateStudent, getStudent} = require('../controllers/student')
 const {autherisation} = require('../middleware/middleware')
 
 route.get('/test',(req,res)=>{
@@ -9,6 +9,11 @@ route.get('/test',(req,res)=>{
 })
 
 route.post('/loginUser',loginUser)
+route.get('/getStudents',autherisation,getStudents)
+
 route.post('/createStudent',autherisation,addStudent)
+route.get('/getStudent',autherisation,getStudent)
+route.put('/updateStudent',autherisation,updateStudent)
+route.delete('/deleteStudent',autherisation,deleteStudent)
 
 module.exports = route
